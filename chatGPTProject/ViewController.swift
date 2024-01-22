@@ -9,6 +9,9 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    // Массив для хранения заметок
+    private var notes: [String] = []
+    
     // Создаем экземпляр UITableView
     private var tableView: UITableView!
 
@@ -39,21 +42,33 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @objc private func addNote() {
-        // Здесь логика добавления новой заметки
-        print("Добавление новой заметки")
+        // Пример добавления новой заметки
+        let newNote = "Заметка \(notes.count + 1)"
+        notes.append(newNote)
+        tableView.reloadData() // Обновляем tableView
+    }
+    
+    // Возможно, вам понадобится метод для удаления заметки
+    func deleteNote(at indexPath: IndexPath) {
+        notes.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 
     // MARK: - UITableViewDataSource Methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Верните количество строк в вашем разделе
-        return 10 // Примерное значение
+        return notes.count // Количество строк соответствует количеству заметок
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Создаем и возвращаем ячейку
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = "Row \(indexPath.row)"
+        cell.textLabel?.text = notes[indexPath.row] // Текст каждой ячейки - это заметка
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            deleteNote(at: indexPath) // Вызываем метод удаления заметки
+        }
     }
 
     // MARK: - UITableViewDelegate Methods
