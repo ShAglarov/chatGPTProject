@@ -8,6 +8,9 @@
 import UIKit
 
 class AddNoteViewController: UIViewController {
+    
+    // Замыкание, которое будет вызвано при сохранении заметки
+    var onSave: ((String) -> Void)?
 
     let textField = UITextField()
 
@@ -38,9 +41,12 @@ class AddNoteViewController: UIViewController {
     }
 
     @objc private func saveNote() {
-        // Логика сохранения заметки
         guard let noteText = textField.text, !noteText.isEmpty else { return }
-        // Здесь код для сохранения заметки
-        print("Сохраняемая заметка: \(noteText)")
+        
+        // Вызываем замыкание с текстом заметки
+        onSave?(noteText)
+        
+        // Возвращаемся к предыдущему экрану
+        navigationController?.popViewController(animated: true)
     }
 }
