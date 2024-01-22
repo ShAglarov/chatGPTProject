@@ -12,19 +12,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Убедитесь, что сцена является UIWindowScene
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-        // Инициализация UIWindow с windowScene
         let window = UIWindow(windowScene: windowScene)
-
-        // Создание нового экземпляра ViewController
+        
+        // Создаем экземпляр ViewController
         let viewController = ViewController()
+        
+        // Оборачиваем ViewController в UINavigationController
+        let navigationController = UINavigationController(rootViewController: viewController)
 
-        // Установка rootViewController для окна
-        window.rootViewController = viewController
+        // Устанавливаем UINavigationController как rootViewController
+        window.rootViewController = navigationController
 
-        // Сделайте это окно видимым
         self.window = window
         window.makeKeyAndVisible()
     }

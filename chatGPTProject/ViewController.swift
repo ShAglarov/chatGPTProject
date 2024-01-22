@@ -26,6 +26,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // Настройка Auto Layout
         setupTableViewConstraints()
+        
+        // Настройка кнопки добавления заметок
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add,
+                                                            target: self,
+                                                            action: #selector(addNote)
+        )
+    }
+    
+    @objc private func addNote() {
+        // Здесь логика добавления новой заметки
+        print("Добавление новой заметки")
     }
 
     // MARK: - UITableViewDataSource Methods
