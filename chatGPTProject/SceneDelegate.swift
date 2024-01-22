@@ -13,18 +13,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-
+        
         let window = UIWindow(windowScene: windowScene)
-        
-        // Создаем экземпляр ViewController
         let viewController = ViewController()
-        
-        // Оборачиваем ViewController в UINavigationController
         let navigationController = UINavigationController(rootViewController: viewController)
-
-        // Устанавливаем UINavigationController как rootViewController
+        
+        // Настройка внешнего вида UINavigationBar
+        let navigationBarAppearance = UINavigationBar.appearance()
+        navigationBarAppearance.backgroundColor = UIColor.systemBlue // Цвет фона
+        navigationBarAppearance.tintColor = UIColor.white           // Цвет элементов (кнопок)
+        navigationBarAppearance.titleTextAttributes = 
+        [NSAttributedString.Key.foregroundColor: UIColor.white] // Цвет текста заголовка
+        
         window.rootViewController = navigationController
-
         self.window = window
         window.makeKeyAndVisible()
     }
