@@ -32,6 +32,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                                             target: self,
                                                             action: #selector(addNote)
         )
+        
+        // Настройка UITableView
+        tableView.backgroundColor = UIColor.white // Цвет фона
+        tableView.separatorColor = UIColor.gray  // Цвет разделителей
     }
     
     @objc private func addNote() {
