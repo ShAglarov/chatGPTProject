@@ -42,10 +42,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @objc private func addNote() {
-        // Пример добавления новой заметки
-        let newNote = "Заметка \(notes.count + 1)"
-        notes.append(newNote)
-        tableView.reloadData() // Обновляем tableView
+        let addNoteVC = AddNoteViewController()
+        navigationController?.pushViewController(addNoteVC, animated: true)
     }
     
     // Возможно, вам понадобится метод для удаления заметки
