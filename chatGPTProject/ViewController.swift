@@ -43,6 +43,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @objc private func addNote() {
         let addNoteVC = AddNoteViewController()
+        addNoteVC.onSave = { [weak self] noteText in
+            self?.notes.append(noteText)
+            self?.tableView.reloadData()
+        }
         navigationController?.pushViewController(addNoteVC, animated: true)
     }
     
