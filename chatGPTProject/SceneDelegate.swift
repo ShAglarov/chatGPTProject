@@ -27,6 +27,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Сделайте это окно видимым
         self.window = window
         window.makeKeyAndVisible()
+
+        guard let _ = (scene as? UIWindowScene) else { return }
     }
 
     // Остальные методы сцены...
