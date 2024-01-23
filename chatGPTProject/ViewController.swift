@@ -36,9 +36,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                                             action: #selector(addNote)
         )
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(toggleEditingMode))
+        
         // Настройка UITableView
         tableView.backgroundColor = UIColor.white // Цвет фона
         tableView.separatorColor = UIColor.gray  // Цвет разделителей
+    }
+    
+    @objc private func toggleEditingMode() {
+        tableView.setEditing(!tableView.isEditing, animated: true)
+        navigationItem.leftBarButtonItem?.title = tableView.isEditing ? "Done" : "Edit"
     }
     
     @objc private func addNote() {
@@ -69,8 +76,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            deleteNote(at: indexPath) // Вызываем метод удаления заметки
+            // Удалите заметку из массива и удалите соответствующую ячейку из таблицы
+            notes.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true // Все ячейки могут быть отредактированы
+    }
+
+    // Если вы хотите добавить возможность перемещения ячеек
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true // Все ячейки могут быть перемещены
+    }
+
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let movedObject = self.notes[sourceIndexPath.row]
+        notes.remove(at: sourceIndexPath.row)
+        notes.insert(movedObject, at: destinationIndexPath.row)
     }
 
     // MARK: - UITableViewDelegate Methods
