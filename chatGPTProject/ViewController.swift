@@ -96,6 +96,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         notes.remove(at: sourceIndexPath.row)
         notes.insert(movedObject, at: destinationIndexPath.row)
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let alertController = UIAlertController(title: "Редактировать заметку", message: nil, preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.text = self.notes[indexPath.row]
+        }
+
+        let saveAction = UIAlertAction(title: "Сохранить", style: .default) { [unowned self] _ in
+            guard let updatedText = alertController.textFields?.first?.text, !updatedText.isEmpty else {
+                return
+            }
+            self.notes[indexPath.row] = updatedText
+            self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
+
+        alertController.addAction(saveAction)
+        alertController.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
+
+        present(alertController, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 
     // MARK: - UITableViewDelegate Methods
     // Здесь можно добавить методы, относящиеся к делегату UITableView
