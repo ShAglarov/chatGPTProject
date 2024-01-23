@@ -20,6 +20,11 @@ class AddNoteViewController: UIViewController {
         setupTextField()
         setupNavigationBar()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        textField.becomeFirstResponder() // Активирует textField при появлении экрана
+    }
 
     private func setupTextField() {
         view.addSubview(textField)
